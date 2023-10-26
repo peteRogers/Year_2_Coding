@@ -7,20 +7,26 @@ let points = [];
 
 function setup() {
   createCanvas(400, 400);
-  for(var i = 0; i < 20; i ++){
-    var v = createVector(width/2, i * 20);
-    points.push(v);
+  for(var i = -10; i < 20; i++ ){
+      var p = createVector(random(100, 300), i * 100);
+      points.push(p);
   }
+  strokeWeight(50);
 }
 
 function draw() {
-  background(220);
-  fill(0);
-  for(var i = 0; i < 20; i ++){  
-    ellipse(points[i].x, points[i].y, i*10, 20);
-   // text(i, points[i].x, points[i].y); 
+  background(255);
+  noFill();
+  beginShape();
+  for(var i = 0; i < points.length; i ++){
+    curveVertex(points[i].x, points[i].y);
+    points[i].y -= 1;
   }
-  let p = points.pop();
-  points.unshift(p);
+  endShape();
+  if(points[0].y < -1000){
+    var p = points.shift();
+    p.y = 2000;
+    points.push(p);
+  }
 }
 ```
